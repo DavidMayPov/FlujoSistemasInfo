@@ -1,27 +1,538 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Corporativo | SecureTech</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CyberShield - Defacement Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+:root {
+--bg: #050816;
+--card: rgba(17, 25, 40, 0.75);
+--border: rgba(255,255,255,0.1);
+--primary: #00f0ff;
+--secondary: #7c4dff;
+--danger: #ff3b6b;
+--text: #ffffff;
+--muted: #9ca3af;
+}
+
+body {
+font-family: 'Inter', sans-serif;
+background: radial-gradient(circle at top left, #101935 0%, #050816 55%);
+color: var(--text);
+overflow-x: hidden;
+}
+
+.bg-animation {
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+z-index: -1;
+overflow: hidden;
+}
+
+.particle {
+position: absolute;
+width: 2px;
+height: 120px;
+background: linear-gradient(transparent, rgba(0,240,255,0.7));
+animation: fall linear infinite;
+}
+
+@keyframes fall {
+from {
+transform: translateY(-150px);
+}
+to {
+transform: translateY(120vh);
+}
+}
+
+header {
+padding: 20px 8%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+backdrop-filter: blur(12px);
+border-bottom: 1px solid var(--border);
+position: sticky;
+top: 0;
+z-index: 100;
+background: rgba(5, 8, 22, 0.7);
+}
+
+.logo {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.5rem;
+color: var(--primary);
+font-weight: 800;
+letter-spacing: 2px;
+}
+
+nav {
+display: flex;
+gap: 25px;
+}
+
+nav a {
+text-decoration: none;
+color: white;
+transition: 0.3s;
+font-weight: 500;
+}
+
+nav a:hover {
+color: var(--primary);
+}
+
+.hero {
+min-height: 90vh;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 8%;
+gap: 40px;
+flex-wrap: wrap;
+}
+
+.hero-text {
+flex: 1;
+min-width: 300px;
+}
+
+.hero-text h1 {
+font-family: 'Orbitron', sans-serif;
+font-size: 4rem;
+line-height: 1.1;
+margin-bottom: 20px;
+}
+
+.hero-text h1 span {
+color: var(--primary);
+text-shadow: 0 0 20px rgba(0,240,255,0.8);
+}
+
+.hero-text p {
+color: var(--muted);
+line-height: 1.8;
+margin-bottom: 30px;
+max-width: 650px;
+}
+
+.buttons {
+display: flex;
+gap: 15px;
+flex-wrap: wrap;
+}
+
+.btn {
+padding: 14px 24px;
+border-radius: 14px;
+border: none;
+cursor: pointer;
+font-weight: 700;
+transition: 0.3s ease;
+font-size: 1rem;
+}
+
+.btn-primary {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: black;
+box-shadow: 0 0 20px rgba(0,240,255,0.4);
+}
+
+.btn-primary:hover {
+transform: translateY(-3px) scale(1.02);
+}
+
+.btn-danger {
+background: linear-gradient(135deg, var(--danger), #ff7b54);
+color: white;
+}
+
+.btn-danger:hover {
+transform: scale(1.03);
+}
+
+.dashboard {
+flex: 1;
+min-width: 320px;
+background: var(--card);
+border: 1px solid var(--border);
+backdrop-filter: blur(18px);
+border-radius: 28px;
+padding: 25px;
+box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+.dashboard-title {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 25px;
+}
+
+.status {
+padding: 8px 15px;
+border-radius: 999px;
+background: rgba(0,255,170,0.1);
+color: #00ffb3;
+border: 1px solid rgba(0,255,170,0.2);
+font-size: 0.9rem;
+}
+
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+gap: 18px;
+}
+
+.card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 18px;
+padding: 20px;
+transition: 0.3s;
+}
+
+.card:hover {
+transform: translateY(-5px);
+border-color: rgba(0,240,255,0.4);
+}
+
+.card h3 {
+color: var(--muted);
+font-size: 0.9rem;
+margin-bottom: 10px;
+}
+
+.card p {
+font-size: 1.8rem;
+font-weight: bold;
+}
+
+.section {
+padding: 100px 8%;
+}
+
+.section-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 2.5rem;
+margin-bottom: 15px;
+text-align: center;
+}
+
+.section-subtitle {
+text-align: center;
+color: var(--muted);
+max-width: 800px;
+margin: auto;
+margin-bottom: 50px;
+line-height: 1.7;
+}
+
+.features {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 25px;
+}
+
+.feature-box {
+background: rgba(255,255,255,0.04);
+border-radius: 24px;
+padding: 30px;
+border: 1px solid rgba(255,255,255,0.08);
+transition: 0.3s;
+}
+
+.feature-box:hover {
+transform: translateY(-8px);
+box-shadow: 0 0 25px rgba(0,240,255,0.15);
+}
+
+.feature-box h3 {
+margin-bottom: 15px;
+color: var(--primary);
+}
+
+.feature-box p {
+color: var(--muted);
+line-height: 1.7;
+}
+
+.terminal {
+background: #02040c;
+border-radius: 24px;
+padding: 30px;
+border: 1px solid rgba(0,240,255,0.2);
+margin-top: 60px;
+overflow: hidden;
+}
+
+.terminal-header {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+
+.dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+}
+
+.red { background: #ff5f57; }
+.yellow { background: #ffbd2f; }
+.green { background: #28ca42; }
+
+.terminal-content {
+font-family: monospace;
+color: #00ff95;
+line-height: 1.8;
+min-height: 120px;
+}
+
+footer {
+padding: 40px;
+text-align: center;
+color: var(--muted);
+border-top: 1px solid rgba(255,255,255,0.08);
+margin-top: 60px;
+}
+
+.warning-banner {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: rgba(255,59,107,0.15);
+border: 1px solid rgba(255,59,107,0.4);
+padding: 16px 22px;
+border-radius: 18px;
+backdrop-filter: blur(14px);
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.03); }
+100% { transform: scale(1); }
+}
+
+.hacked {
+background: #000 !important;
+color: red !important;
+animation: glitch 0.15s infinite;
+}
+
+@keyframes glitch {
+0% { transform: translate(0); }
+20% { transform: translate(-2px, 2px); }
+40% { transform: translate(-2px, -2px); }
+60% { transform: translate(2px, 2px); }
+80% { transform: translate(2px, -2px); }
+100% { transform: translate(0); }
+}
+
+@media (max-width: 768px) {
+.hero-text h1 {
+font-size: 2.8rem;
+}
+
+nav {
+display: none;
+}
+}
+</style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-dark shadow">
-        <div class="container">
-            <a class="navbar-brand" href="#">🛡️ SecureTech Integrations</a>
-        </div>
-    </nav>
-    <main class="container mt-5">
-        <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-body p-5">
-                <h1 class="card-title text-success mb-4">Estado del Sistema: 100% Operativo y funcional</h1>
-                <p class="card-text fs-5">Bienvenido al portal interno de administración. Todos los servicios de transferencia de datos y bases de clientes están funcionando con normalidad bajo estrictos protocolos de seguridad criptográfica.</p>
-                <hr>
-                <p class="text-muted small">Última auditoría: Todo en orden. No se detectan anomalías en el DOM.</p>
-                <button class="btn btn-primary mt-3">Acceder al Dashboard Principal</button>
-            </div>
-        </div>
-    </main>
+<body>
+
+<div class="bg-animation" id="particles"></div>
+
+<header>
+<div class="logo">CYBERSHIELD</div>
+
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#servicios">Servicios</a>
+<a href="#monitor">Monitor</a>
+<a href="#contacto">Contacto</a>
+</nav>
+</header>
+
+<section class="hero" id="inicio">
+<div class="hero-text">
+<h1>Protección <span>Anti‑Defacement</span> Inteligente</h1>
+
+<p>
+Plataforma interactiva diseñada para monitorear la integridad de sitios web,
+detectar modificaciones sospechosas y analizar incidentes de ciberseguridad
+en tiempo real.
+</p>
+
+<div class="buttons">
+<button class="btn btn-primary" onclick="showAlert()">Escanear Sitio</button>
+<button class="btn btn-danger" onclick="simulateHack()">Simular Defacement</button>
+</div>
+</div>
+
+<div class="dashboard">
+<div class="dashboard-title">
+<h2>Panel de Seguridad</h2>
+<span class="status" id="status">Seguro</span>
+</div>
+
+<div class="grid">
+<div class="card">
+<h3>Amenazas Bloqueadas</h3>
+<p id="threats">148</p>
+</div>
+
+<div class="card">
+<h3>Monitoreos</h3>
+<p>24/7</p>
+</div>
+
+<div class="card">
+<h3>Tiempo Activo</h3>
+<p>99.9%</p>
+</div>
+
+<div class="card">
+<h3>Integridad</h3>
+<p id="integrity">100%</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="servicios">
+<h2 class="section-title">Funciones de Seguridad</h2>
+
+<p class="section-subtitle">
+Sistema visual e interactivo orientado a prácticas académicas de detección de
+defacement y análisis de integridad web.
+</p>
+
+<div class="features">
+<div class="feature-box">
+<h3>Detección Inteligente</h3>
+<p>
+Analiza cambios inesperados en HTML, CSS y contenido visual mediante reglas
+automatizadas.
+</p>
+</div>
+
+<div class="feature-box">
+<h3>Alertas en Tiempo Real</h3>
+<p>
+Genera notificaciones automáticas cuando el sistema detecta modificaciones
+sospechosas.
+</p>
+</div>
+
+<div class="feature-box">
+<h3>Historial de Cambios</h3>
+<p>
+Guarda registros de actividad y snapshots para comparar integridad.
+</p>
+</div>
+
+<div class="feature-box">
+<h3>Simulación Académica</h3>
+<p>
+Permite alterar visualmente la página para pruebas de monitoreo y análisis.
+</p>
+</div>
+</div>
+
+<div class="terminal" id="monitor">
+<div class="terminal-header">
+<div class="dot red"></div>
+<div class="dot yellow"></div>
+<div class="dot green"></div>
+</div>
+
+<div class="terminal-content" id="terminal">
+> Inicializando sistema de monitoreo...<br>
+> Cargando reglas de detección...<br>
+> Estado del servidor: ONLINE<br>
+> Esperando eventos sospechosos...
+</div>
+</div>
+</section>
+
+<footer id="contacto">
+©️ 2026 CyberShield Security Lab · Proyecto Académico de Ciberseguridad
+</footer>
+
+<div class="warning-banner">
+⚠ Modo demostración académica activo
+</div>
+
+<script>
+const particlesContainer = document.getElementById('particles');
+
+for (let i = 0; i < 70; i++) {
+const particle = document.createElement('div');
+particle.classList.add('particle');
+particle.style.left = Math.random() * 100 + 'vw';
+particle.style.animationDuration = (Math.random() * 5 + 4) + 's';
+particle.style.opacity = Math.random();
+particlesContainer.appendChild(particle);
+}
+
+function showAlert() {
+const terminal = document.getElementById('terminal');
+
+terminal.innerHTML += '<br>> Escaneando archivos del sistema...';
+
+setTimeout(() => {
+terminal.innerHTML += '<br>> Verificando integridad HTML...';
+}, 1000);
+
+setTimeout(() => {
+terminal.innerHTML += '<br>> No se detectaron alteraciones.';
+}, 2000);
+}
+
+function simulateHack() {
+document.body.classList.add('hacked');
+
+document.querySelector('.hero-text h1').innerHTML = 'SITE <span>HACKED</span>';
+
+document.querySelector('.hero-text p').innerHTML =
+'⚠ Integridad comprometida. Se detectó un posible ataque de defacement en el sistema.';
+
+document.getElementById('status').innerText = 'Comprometido';
+document.getElementById('status').style.background = 'rgba(255,0,0,0.15)';
+document.getElementById('status').style.color = '#ff4d4d';
+
+document.getElementById('integrity').innerText = '12%';
+
+document.getElementById('terminal').innerHTML = `
+> ALERTA CRÍTICA DETECTADA<br>
+> Modificación no autorizada encontrada<br>
+> Página principal alterada<br>
+> Activando protocolo de contención...<br>
+> Registrando incidente de seguridad...
+`;
+
+let threats = document.getElementById('threats');
+threats.innerText = parseInt(threats.innerText) + 1;
+}
+</script>
+
 </body>
 </html>
