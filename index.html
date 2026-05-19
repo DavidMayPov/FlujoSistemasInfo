@@ -15,7 +15,140 @@ padding: 0;
 box-sizing: border-box;
 }
 
+:root {
+--bg: #050816;
+--card: rgba(17, 25, 40, 0.75);
+--border: rgba(255,255,255,0.1);
+--primary: #00f0ff;
+--secondary: #7c4dff;
+--danger: #ff3b6b;
+--text: #ffffff;
+--muted: #9ca3af;
+}
 
+body {
+font-family: 'Inter', sans-serif;
+background: radial-gradient(circle at top left, #101935 0%, #050816 55%);
+color: var(--text);
+overflow-x: hidden;
+}
+
+.bg-animation {
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+z-index: -1;
+overflow: hidden;
+}
+
+.particle {
+position: absolute;
+width: 2px;
+height: 120px;
+background: linear-gradient(transparent, rgba(0,240,255,0.7));
+animation: fall linear infinite;
+}
+
+@keyframes fall {
+from {
+transform: translateY(-150px);
+}
+to {
+transform: translateY(120vh);
+}
+}
+
+header {
+padding: 20px 8%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+backdrop-filter: blur(12px);
+border-bottom: 1px solid var(--border);
+position: sticky;
+top: 0;
+z-index: 100;
+background: rgba(5, 8, 22, 0.7);
+}
+
+.logo {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.5rem;
+color: var(--primary);
+font-weight: 800;
+letter-spacing: 2px;
+}
+
+nav {
+display: flex;
+gap: 25px;
+}
+
+nav a {
+text-decoration: none;
+color: white;
+transition: 0.3s;
+font-weight: 500;
+}
+
+nav a:hover {
+color: var(--primary);
+}
+
+.hero {
+min-height: 90vh;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 8%;
+gap: 40px;
+flex-wrap: wrap;
+}
+
+.hero-text {
+flex: 1;
+min-width: 300px;
+}
+
+.hero-text h1 {
+font-family: 'Orbitron', sans-serif;
+font-size: 4rem;
+line-height: 1.1;
+margin-bottom: 20px;
+}
+
+.hero-text h1 span {
+color: var(--primary);
+text-shadow: 0 0 20px rgba(0,240,255,0.8);
+}
+
+.hero-text p {
+color: var(--muted);
+line-height: 1.8;
+margin-bottom: 30px;
+max-width: 650px;
+}
+
+.buttons {
+display: flex;
+gap: 15px;
+flex-wrap: wrap;
+}
+
+.btn {
+padding: 14px 24px;
+border-radius: 14px;
+border: none;
+cursor: pointer;
+font-weight: 700;
+transition: 0.3s ease;
+font-size: 1rem;
+}
+
+.btn-primary {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
 color: black;
 box-shadow: 0 0 20px rgba(0,240,255,0.4);
 }
@@ -139,7 +272,100 @@ color: var(--muted);
 line-height: 1.7;
 }
 
+.terminal {
+background: #02040c;
+border-radius: 24px;
+padding: 30px;
+border: 1px solid rgba(0,240,255,0.2);
+margin-top: 60px;
+overflow: hidden;
+}
 
+.terminal-header {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+
+.dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+}
+
+.red { background: #ff5f57; }
+.yellow { background: #ffbd2f; }
+.green { background: #28ca42; }
+
+.terminal-content {
+font-family: monospace;
+color: #00ff95;
+line-height: 1.8;
+min-height: 120px;
+}
+
+footer {
+padding: 40px;
+text-align: center;
+color: var(--muted);
+border-top: 1px solid rgba(255,255,255,0.08);
+margin-top: 60px;
+}
+
+.warning-banner {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: rgba(255,59,107,0.15);
+border: 1px solid rgba(255,59,107,0.4);
+padding: 16px 22px;
+border-radius: 18px;
+backdrop-filter: blur(14px);
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.03); }
+100% { transform: scale(1); }
+}
+
+.hacked {
+background: #000 !important;
+color: red !important;
+animation: glitch 0.15s infinite;
+}
+
+@keyframes glitch {
+0% { transform: translate(0); }
+20% { transform: translate(-2px, 2px); }
+40% { transform: translate(-2px, -2px); }
+60% { transform: translate(2px, 2px); }
+80% { transform: translate(2px, -2px); }
+100% { transform: translate(0); }
+}
+
+@media (max-width: 768px) {
+.hero-text h1 {
+font-size: 2.8rem;
+}
+
+nav {
+display: none;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-animation" id="particles"></div>
+
+<header>
+<div class="logo">CYBERSHIELD</div>
+
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#servicios">Servicios</a>
 <a href="#monitor">Monitor</a>
 <a href="#contacto">Contacto</a>
 </nav>
@@ -150,9 +376,9 @@ line-height: 1.7;
 <h1>Protección <span>Anti‑Defacement</span> Inteligente</h1>
 
 <p>
-USTE A ZIDO JAKIADO
-
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC-Ka6pD03ociUA8RxIGx_AgANLuwnpffiCQ&s">
+Plataforma interactiva diseñada para monitorear la integridad de sitios web,
+detectar modificaciones sospechosas y analizar incidentes de ciberseguridad
+en tiempo real.
 </p>
 
 <div class="buttons">
